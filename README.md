@@ -28,13 +28,26 @@ to be completed ...
 to be written ...
 
 # Avionics Overview:
-to be written ...
+  Here is a general overview of the different sensor and library files this repository includes. Firstly, what is a library file? A library/header file is a layer where you directly communicate with a given object of some given library class. Each Library has respected high-level functions that communicate with corresponding registers that carry meaningful data that the sensor populates into its memory. 
 
+  The Communication protocol: Each sensor has a specific communication protocol associated with its header pins, ports that take in/put out some information. Among the three communication protocols, two are mostly used: SPI Serial Peripheral Interface, I2C Inter-Integrated Circuit, and UART Universal Asynchronous Receiver/Transmitter. Each of these has standard header pins to which you can connect wires from your microcontroller. 
+  
+  For SPI each sensor requires a MISO: {Master in Slave out(Data flowing out of the sensor to your parent microcontroller, ex: write2_BMP_regX())}, MOSI: {Master Out Slave In(Data coming out: getData_fromRegisterX)}, a clock pin which matches the signal message rate{baud rate} with the parent microcontroller and a CS {Identifier pin}.
+
+  The name Inter-Integrated Circuit comes from the simplicity and pre overhead organization that is done on these communication lines: the I2C automatically has respected MOSI/MISO command specifiers within each byte of information which leads to the need for one communication header pin: SDA and one clock pin-SCL to match the baud rates of the parent and child sensor.
+
+  UART uses Wires: 2 — TX (transmit), RX (receive) with no clock due to the asynchronous behavior of these sensors.
+
+  Ok, so we went over the different communication protocols of the sensors we will be using, each has it's unique wiring to lead to proper data transmission. Our sensor stack includes a 10DOF IMU {Inertial Measuring Unit} which uses a I2C comm. protocol. these 10DOF are acceleration_x,acceleration_y. acceleration_z. a related magnetic field vector per our sensor frame: Mx, My,Mz. the omega vector {rate of change of our angle}: Omega_x, Omega_y, and Omega_z. and a Pressure sensor which we can read pressure or a converted altitude. 
+
+  In addition to our IMU we have a GPS that communicates with the Global Navigation Satellite System which gives us a position vector of Px, Py, Pz.
+  
 
 # Future Experimental Functionalities/Payloads(not relevant to the HPR certifications):
 - Custom Radio Communication module
 - Reaction Wheel for stabilization of the Roll Axis
 - Fin Control/Thrust Vector Control
+
 
 <!-- ## Depricated Gameplan:
 Step 1: Shortlist all of the sensors, actuators, microcontrollers, and other hardware components that would be the perfect fit for the given problem statement.<br>
