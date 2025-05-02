@@ -48,7 +48,8 @@ to be written ...
 
 In the main flight software we are reading files and checking for flight conditions: these flight conditions are as followed: isLaunched, isApogee, isLanded. The logic for finding correct event detection uses the accelerometer and pressure sensor of our tech stack. We collect a N sized array which has a collection of pressure values over some time frame, we divide this array into two sections a prevSubArray and a currSubArray. These arrays will be used to see if our values are consistently changing per some flight condition. We first populate this array and collect the average and variance to help mitigate the inherent noise of our sensors. After this initial population is finished we then start our flightChecks, where at each timestep the main N_sized array is left-shifted adding the pressure value given by our BMP. and we compute the difference of these subArray means to see if pressure is consistently lowering, raising, or static. If the currSubArray is consistently less than our prevSubArray over some threshold value: counter, meaning we are ascending, {pressure decreases the higher alt one goes}:  we activate our flight condition boolean isLaunched and start checking for isApogee: (If pressure is continuously raising over a counter threshold.) Finally, after isApogee is true we check for isLanded. The difference between these twoSubArrays are below a threshold over some landingCounter.
 
-  #TODO PUT Fusion360 schematic. 
+![image](https://github.com/user-attachments/assets/24d410e9-78b2-4ab2-ab54-73681ea44f6d)
+
   
 
 # Future Experimental Functionalities/Payloads(not relevant to the HPR certifications):
